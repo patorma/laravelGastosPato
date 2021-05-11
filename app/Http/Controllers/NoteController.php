@@ -40,7 +40,13 @@ class NoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'excerpt' => 'required',
+            'content' => 'required',
+        ]);
+        $note = Note::create($request->all());
+        // return Inertia::location('/notes/'.$note->id.'/edit');
+        return Inertia::location('/notes');
     }
 
     /**
