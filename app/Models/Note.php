@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Note extends Model
 {
     use HasFactory;
+
+    //permitir cambios como asignacion masiva
+    protected $fillable = [
+        'excerpt',
+        'content'
+    ];
 }
