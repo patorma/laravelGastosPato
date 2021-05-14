@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Inertia\Inertia;
 use App\Models\Note;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller
@@ -44,9 +45,10 @@ class NoteController extends Controller
             'excerpt' => 'required',
             'content' => 'required',
         ]);
-        $note = Note::create($request->all());
+        Note::create($request->all());
+        Session::flash('status','Nota creada');
         // return Inertia::location('/notes/'.$note->id.'/edit');
-        return Inertia::location('/notes');
+        return Inertia::location('/notes') ;
     }
 
     /**
@@ -85,6 +87,7 @@ class NoteController extends Controller
             'content' => 'required',
         ]);
         $note->update($request->all());
+        Session::flash('status','Nota actualizada');
 
         return Inertia::location('/notes');
     }
@@ -98,6 +101,7 @@ class NoteController extends Controller
     public function destroy(Note $note)
     {
         $note->delete();
+        Session::flash('status','Nota eliminada');
         return Inertia::location('/notes');
     }
 }
